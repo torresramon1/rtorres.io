@@ -106,7 +106,6 @@ export function CVContent() {
               <a href={`mailto:${siteConfig.email}`} className="link-accent">
                 {siteConfig.email}
               </a>
-              <span>{siteConfig.location.city}</span>
               {/* TODO: update or remove this website link */}
               <a href="https://rtorres.io" className="link-accent">
                 rtorres.io
