@@ -26,6 +26,13 @@ const education = [
 
 // TODO: Fill in your work/research experience. Add or remove objects as needed.
 const experience = [
+	{
+		title: "LAMAT mentor"
+		organization: "University of California, Santa Cruz",
+		period: "July 2026 - Aug 2026",
+		location: "Santa Cruz, CA",
+		description: "Mentored a LAMAT student during the summer in a network security and sustainability project."
+	},
   {
     title: "CSE 150 TA", // TODO: e.g. "Research Intern"
     organization: "University of California, Santa Cruz", // TODO: e.g. "Example Lab"
