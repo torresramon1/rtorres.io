@@ -42,6 +42,22 @@ const experience = [
   },
 ];
 
+interface Presentation {
+  title: string
+  event: string
+  location: string
+  year: string
+  type: string
+}
+
+interface Service {
+  title: string
+  organization: string
+  year: string
+  description: string
+  link?: string // optional since comment says "remove field if no link"
+}
+
 // TODO: Fill in your talks and presentations. Add or remove objects as needed.
 const presentations = [
   //{
