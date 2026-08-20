@@ -5,11 +5,11 @@ import { PublicationsJsonLd } from "@/components/structured-data";
 export const metadata: Metadata = {
   title: "Publications",
   description:
-    "Peer-reviewed publications by Mohamed Dawoud on security, privacy, cybercrime, and AI governance.",
+    "Peer-reviewed publications by Ramon Torres on security, privacy, and networks.",
   alternates: { canonical: "/publications" },
   openGraph: {
     title: "Publications | Mohamed Dawoud",
-    description: "Peer-reviewed publications by Mohamed Dawoud on security, privacy, cybercrime, and AI governance.",
+    description: "Peer-reviewed publications by Ramon Torres on security, privacy, cybercrime, and networks.",
     url: "/publications",
   },
 };
