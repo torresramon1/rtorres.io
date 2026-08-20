@@ -44,24 +44,24 @@ const experience = [
 
 // TODO: Fill in your talks and presentations. Add or remove objects as needed.
 const presentations = [
-  {
-    title: "YOUR_TALK_TITLE", // TODO: paper or talk title
-    event: "YOUR_EVENT", // TODO: e.g. "NeurIPS 2024"
-    location: "YOUR_LOCATION", // TODO: e.g. "Vancouver, Canada"
-    year: "2024", // TODO: year
-    type: "YOUR_TYPE", // TODO: e.g. "Conference Talk" or "Workshop Talk" or "Poster"
-  },
+  //{
+    //title: "YOUR_TALK_TITLE", // TODO: paper or talk title
+    //event: "YOUR_EVENT", // TODO: e.g. "NeurIPS 2024"
+    //location: "YOUR_LOCATION", // TODO: e.g. "Vancouver, Canada"
+    //year: "2024", // TODO: year
+    //type: "YOUR_TYPE", // TODO: e.g. "Conference Talk" or "Workshop Talk" or "Poster"
+  //},
 ];
 
 // TODO: Fill in your service and outreach. Add or remove objects as needed.
 const service = [
-  {
-    title: "YOUR_SERVICE_ROLE", // TODO: e.g. "Program Committee Member, USENIX Security 2025"
-    organization: "YOUR_ORG", // TODO: e.g. "USENIX"
-    year: "2025", // TODO: year
-    description: "YOUR_SERVICE_DESCRIPTION", // TODO: brief description
-    link: "https://YOUR_SERVICE_URL", // TODO: remove field if no link
-  },
+  //{
+    //title: "YOUR_SERVICE_ROLE", // TODO: e.g. "Program Committee Member, USENIX Security 2025"
+    //organization: "YOUR_ORG", // TODO: e.g. "USENIX"
+    //year: "2025", // TODO: year
+    //description: "YOUR_SERVICE_DESCRIPTION", // TODO: brief description
+    //link: "https://YOUR_SERVICE_URL", // TODO: remove field if no link
+  //},
 ];
 
 const jumpLinks = [
