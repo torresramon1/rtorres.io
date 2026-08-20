@@ -24,7 +24,7 @@ export interface Publication {
 // TODO: Replace the example below with your own publications.
 // Duplicate the object block for each additional paper.
 export const publications: Publication[] = [
-  {
+  /*{
     id: "example-paper-2024", // TODO: unique slug, e.g. "my-paper-venue-year"
     title: "YOUR_PAPER_TITLE", // TODO: full paper title
     authors: ["YOUR_NAME", "CO_AUTHOR_NAME"], // TODO: list all authors in order
@@ -48,7 +48,7 @@ export const publications: Publication[] = [
   booktitle={YOUR_VENUE_NAME},
   year={2024}
 }`,
-  },
+  },*/
 ];
 
 export const publicationYears = [
