@@ -59,7 +59,7 @@ interface Service {
 }
 
 // TODO: Fill in your talks and presentations. Add or remove objects as needed.
-const presentations = [
+const presentations: Presentation[] = [
   //{
     //title: "YOUR_TALK_TITLE", // TODO: paper or talk title
     //event: "YOUR_EVENT", // TODO: e.g. "NeurIPS 2024"
@@ -70,7 +70,7 @@ const presentations = [
 ];
 
 // TODO: Fill in your service and outreach. Add or remove objects as needed.
-const service = [
+const service: Service[] = [
   //{
     //title: "YOUR_SERVICE_ROLE", // TODO: e.g. "Program Committee Member, USENIX Security 2025"
     //organization: "YOUR_ORG", // TODO: e.g. "USENIX"
