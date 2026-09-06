@@ -21,7 +21,7 @@ function PublicationRow({ publication }: { publication: Publication }) {
   const typeBadgeColor = {
     conference: "bg-foreground/10 text-foreground",
     journal: "bg-accent/15 text-accent",
-    workshop: "bg-accent/10 text-foreground-secondary",
+    workshop: "bg-accent-2/15 text-accent-2",
     preprint: "bg-muted text-foreground-tertiary",
   }[publication.type];
 
