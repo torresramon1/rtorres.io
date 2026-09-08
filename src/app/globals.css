@@ -75,7 +75,7 @@
   /* Semantic mappings */
   --card-foreground: #2C2C2C;
   --popover-foreground: #2C2C2C;
-  --primary: #B39CD0;
+  --primary: #FFC1CC;
   --primary-foreground: #211D2B;
   --secondary: #F4F4F4;
   --secondary-foreground: #2C2C2C;
@@ -100,13 +100,13 @@
   --chart-1: #2F7476;
   --chart-2: #7D5AA3;
   --chart-3: #B3486A;
-  --chart-4: #B39CD0;
+  --chart-4: #FFC1CC;
   --chart-5: #DC2626;
 
   /* Sidebar */
   --sidebar: #FFFFFF;
   --sidebar-foreground: #2C2C2C;
-  --sidebar-primary: #B39CD0;
+  --sidebar-primary: #FFC1CC;
   --sidebar-primary-foreground: #211D2B;
   --sidebar-accent: #F4F4F4;
   --sidebar-accent-foreground: #2C2C2C;
@@ -132,7 +132,7 @@
 
   --card-foreground: #E4E4E4;
   --popover-foreground: #E4E4E4;
-  --primary: #B39CD0;
+  --primary: #FFC1CC;
   --primary-foreground: #211D2B;
   --secondary: #383838;
   --secondary-foreground: #E4E4E4;
@@ -154,14 +154,14 @@
 
   /* Charts — teal / lavender / pink progression */
   --chart-1: #A8DADC;
-  --chart-2: #B39CD0;
+  --chart-2: #FFC1CC;
   --chart-3: #FFC1CC;
   --chart-4: #7FB8BA;
   --chart-5: #F87171;
 
   --sidebar: #333333;
   --sidebar-foreground: #E4E4E4;
-  --sidebar-primary: #B39CD0;
+  --sidebar-primary: #FFC1CC;
   --sidebar-primary-foreground: #211D2B;
   --sidebar-accent: #383838;
   --sidebar-accent-foreground: #E4E4E4;
