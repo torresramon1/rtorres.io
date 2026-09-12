@@ -61,10 +61,10 @@
   --radius: 0.625rem;
 
   /* Backgrounds — everything white, shadows create depth */
-  --background: #FFFFFF;
-  --card: #FFFFFF;
-  --popover: #FFFFFF;
-  --muted: #F4F4F4;
+  --background: #FAF9F6;
+  --card: #FAF9F6;
+  --popover: #FAF9F6;
+  --muted: #FAF8F7;
 
   /* Four-level foreground — neutral charcoal hierarchy */
   --foreground: #2C2C2C;
@@ -104,14 +104,14 @@
   --chart-5: #DC2626;
 
   /* Sidebar */
-  --sidebar: #FFFFFF;
-  --sidebar-foreground: #2C2C2C;
-  --sidebar-primary: #FFC1CC;
-  --sidebar-primary-foreground: #211D2B;
-  --sidebar-accent: #F4F4F4;
-  --sidebar-accent-foreground: #2C2C2C;
-  --sidebar-border: #E5E5E5;
-  --sidebar-ring: #2F7476;
+  --sidebar: #FAF9F6;
+  --sidebar-foreground: #1A1110;
+  --sidebar-primary: #1A1110;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #FAF8F7;
+  --sidebar-accent-foreground: #1A1110;
+  --sidebar-border: #EDEBE9;
+  --sidebar-ring: #8B5E63;
 }
 
 /* ═══════════════════════════════════════════
