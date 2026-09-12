@@ -61,9 +61,9 @@
   --radius: 0.625rem;
 
   /* Backgrounds — everything white, shadows create depth */
-  --background: #FAF9F6;
-  --card: #FAF9F6;
-  --popover: #FAF9F6;
+  --background: #FFFFF0;
+  --card: #FFFFF0;
+  --popover: #FFFFF0;
   --muted: #FAF8F7;
 
   /* Four-level foreground — neutral charcoal hierarchy */
@@ -104,7 +104,7 @@
   --chart-5: #DC2626;
 
   /* Sidebar */
-  --sidebar: #FAF9F6;
+  --sidebar: #FFFFF0;
   --sidebar-foreground: #1A1110;
   --sidebar-primary: #1A1110;
   --sidebar-primary-foreground: #FFFFFF;
