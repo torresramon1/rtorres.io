@@ -20,7 +20,7 @@ export const ongoingProjects: OngoingProject[] = [
       "Carbon aware routing",
     ],
     status: "In Progress",
-    tags: ["Tor", "Sustainability", "Privacy", "Networks"],
+    tags: ["Tor", "Sustainability", "Privacy", "Networks", "Measurement"],
     link: "",
     irb: "",
   },
