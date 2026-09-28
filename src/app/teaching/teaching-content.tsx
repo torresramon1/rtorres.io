@@ -7,6 +7,19 @@ import { siteConfig } from "@/data/site-config";
 // TODO: Add your courses here. Add or remove objects as needed.
 const courses = [
   {
+    semester: "Fall 2026", // TODO: e.g. "Spring 2025"
+    role: "Teaching Assistant", // TODO: e.g. "Lead Graduate Teaching Assistant" or "Instructor"
+    code: "CSE 156", // TODO: e.g. "CS 101"
+    title: "Network Programming", // TODO: e.g. "Introduction to Programming"
+    institution: "University of California, Santa Cruz", // TODO: e.g. "University of Example"
+    instructor: "Prof. Mike Parsa", // TODO: e.g. "Prof. Jane Doe" — remove field if you were the instructor
+    highlights: [
+      "Led weekly lab sections, guided students through hands-on networking assignments.", // TODO: bullet point describing what you did or taught
+      "Held regular office hours to support student understanding of course material.",
+      //"Graded exams and lab assignments, provided feedback aligned with course objectives.",
+    ],
+  },
+  {
     semester: "Fall 2025", // TODO: e.g. "Spring 2025"
     role: "Teaching Assistant", // TODO: e.g. "Lead Graduate Teaching Assistant" or "Instructor"
     code: "CSE 150", // TODO: e.g. "CS 101"
