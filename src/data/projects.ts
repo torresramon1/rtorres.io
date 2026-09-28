@@ -19,7 +19,7 @@ export const ongoingProjects: OngoingProject[] = [
       "Measuring Tor's carbon footprint",
       "Carbon aware routing",
     ],
-    status: "In Progress",
+    status: "Under Review", // In Progress, Under Review, 
     tags: ["Tor", "Sustainability", "Privacy", "Networks", "Measurement"],
     link: "",
     irb: "",
