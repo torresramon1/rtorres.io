@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://momodawoud.github.io/sitemap.xml
+Sitemap: https://rtorres.io/sitemap.xml
