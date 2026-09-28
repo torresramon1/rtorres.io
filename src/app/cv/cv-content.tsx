@@ -27,6 +27,13 @@ const education = [
 // TODO: Fill in your work/research experience. Add or remove objects as needed.
 const experience = [
 	{
+		title: "CSE 156 TA - Network Programming", // TODO: e.g. "Research Intern"
+		organization: "University of California, Santa Cruz", // TODO: e.g. "Example Lab"
+		period: "Sep 2026 - Current", // TODO: e.g. "Jun 2023 - Aug 2023"
+		location: "Santa Cruz, CA",
+		description: "Led weekly lab sections and guided students through hands-on networking assignments", // TODO: brief description of your responsibilities/contributions
+	},
+	{
 		title: "LAMAT mentor",
 		organization: "University of California, Santa Cruz",
 		period: "July 2026 - Aug 2026",
@@ -34,7 +41,7 @@ const experience = [
 		description: "Mentored a LAMAT student during the summer in a network security and sustainability project.",
 	},
   {
-    title: "CSE 150 TA", // TODO: e.g. "Research Intern"
+    title: "CSE 150 TA - Introduction to Computer Networks", // TODO: e.g. "Research Intern"
     organization: "University of California, Santa Cruz", // TODO: e.g. "Example Lab"
     period: "Sep 2025 - Dec 2025", // TODO: e.g. "Jun 2023 - Aug 2023"
     location: "Santa Cruz, CA",
