@@ -4,11 +4,11 @@ import { ServiceContent } from "./service-content";
 export const metadata: Metadata = {
   title: "Service & Outreach",
   description:
-    "Professional service, community outreach, and mentorship by Mohamed Dawoud.",
+    "Professional service, community outreach, and mentorship by Ramon Torres.",
   alternates: { canonical: "/service" },
   openGraph: {
-    title: "Service & Outreach | Mohamed Dawoud",
-    description: "Professional service, community outreach, and mentorship by Mohamed Dawoud.",
+    title: "Service & Outreach | Ramon Torres",
+    description: "Professional service, community outreach, and mentorship by Ramon Torres.",
     url: "/service",
   },
 };

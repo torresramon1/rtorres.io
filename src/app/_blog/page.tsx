@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     "Research notes, technical tutorials, and reflections on security, privacy, and AI.",
   alternates: { canonical: "/blog" },
   openGraph: {
-    title: "Blog | Mohamed Dawoud",
+    title: "Blog | Ramon Torres",
     description: "Research notes, technical tutorials, and reflections on security, privacy, and AI.",
     url: "/blog",
   },

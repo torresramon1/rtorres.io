@@ -72,10 +72,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mohamed Dawoud | Security & Privacy Researcher",
+    title: "Ramon Torres | Security & Privacy Researcher",
     description:
       "PhD Student in Computer Science at UC Santa Cruz, researching human-centered security and privacy.",
-    creator: "@mohameddawoud",
     images: ["/og-image.png"],
   },
   robots: {

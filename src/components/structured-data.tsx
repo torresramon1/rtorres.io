@@ -8,7 +8,7 @@ export function PersonJsonLd() {
     name: siteConfig.name,
     jobTitle: siteConfig.role,
     description: siteConfig.bio.short,
-    url: "https://momodawoud.github.io",
+    url: "https://ramontorres.github.io",
     email: siteConfig.email,
     affiliation: {
       "@type": "EducationalOrganization",
@@ -31,7 +31,7 @@ export function PersonJsonLd() {
       siteConfig.social.googleScholar,
     ],
     knowsAbout: siteConfig.researchInterests,
-    image: "https://momodawoud.github.io/profile.jpg",
+    image: "https://ramontorres.github.io/profile_pic.jpeg",
   };
 
   return (

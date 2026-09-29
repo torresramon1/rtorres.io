@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     "Peer-reviewed publications by Ramon Torres on security, privacy, and networks.",
   alternates: { canonical: "/publications" },
   openGraph: {
-    title: "Publications | Mohamed Dawoud",
+    title: "Publications | Ramon Torres",
     description: "Peer-reviewed publications by Ramon Torres on security, privacy, cybercrime, and networks.",
     url: "/publications",
   },
