@@ -2,9 +2,8 @@
 
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Search, X, FileText, GraduationCap, Newspaper, PenLine } from "lucide-react";
+import { Search, X, FileText, GraduationCap, Newspaper } from "lucide-react";
 import { publications } from "@/data/publications";
-import { blogIndex } from "@/data/blog-index";
 
 interface SearchResult {
   title: string;
@@ -17,12 +16,8 @@ interface SearchResult {
 const staticPages: SearchResult[] = [
   { title: "Home", description: "Main page and bio", href: "/", type: "Page", icon: FileText },
   { title: "Publications", description: "All peer-reviewed publications", href: "/publications", type: "Page", icon: FileText },
-  { title: "Teaching", description: "Teaching experience at Dartmouth", href: "/teaching", type: "Page", icon: GraduationCap },
-  //{ title: "Service & Outreach", description: "Professional service and community contributions", href: "/service", type: "Page", icon: FileText },
-  //{ title: "Recognition", description: "Fellowships and media coverage", href: "/recognition", type: "Page", icon: FileText },
-  //{ title: "My Journey", description: "Timeline and personal story", href: "/journey", type: "Page", icon: FileText },
+  { title: "Teaching", description: "Teaching experience at UC Santa Cruz", href: "/teaching", type: "Page", icon: GraduationCap },
   { title: "CV", description: "Curriculum Vitae", href: "/cv", type: "Page", icon: FileText },
-  //{ title: "Blog", description: "Research notes and tutorials", href: "/blog", type: "Page", icon: PenLine },
   { title: "News", description: "Latest research updates", href: "/news", type: "Page", icon: Newspaper },
 ];
 
@@ -34,15 +29,7 @@ const publicationResults: SearchResult[] = publications.map((pub) => ({
   icon: FileText,
 }));
 
-const blogResults: SearchResult[] = blogIndex.map((post) => ({
-  title: post.title,
-  description: post.description,
-  href: `/blog/${post.slug}`,
-  type: "Blog",
-  icon: PenLine,
-}));
-
-const allSearchItems = [...staticPages, ...publicationResults, ...blogResults];
+const allSearchItems = [...staticPages, ...publicationResults];
 
 interface GlobalSearchProps {
   mobile?: boolean;

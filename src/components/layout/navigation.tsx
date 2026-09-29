@@ -14,10 +14,6 @@ const navItems = [
   { name: "Home", href: "/" },
   { name: "Publications", href: "/publications" },
   { name: "Teaching", href: "/teaching" },
-  //{ name: "Service & Outreach", href: "/service" },
-  //{ name: "Recognition", href: "/recognition" },
-  //{ name: "Blog", href: "/blog" },
-  //{ name: "My Journey", href: "/journey" },
   { name: "CV", href: "/cv" },
 ];
 

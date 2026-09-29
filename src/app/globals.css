@@ -508,23 +508,6 @@ hr,
   margin: 2em 0;
 }
 
-/* rehype-pretty-code overrides */
-.prose [data-rehype-pretty-code-figure] pre {
-  background: var(--card);
-  border: 1px solid var(--border);
-}
-
-.prose [data-rehype-pretty-code-figure] code {
-  background: none;
-  border: none;
-  padding: 0;
-  counter-reset: line;
-}
-
-.prose [data-rehype-pretty-code-figure] [data-line] {
-  padding: 0 1.5rem;
-}
-
 /* ═══════════════════════════════════════════
    CARD HOVER UTILITY
    ═══════════════════════════════════════════ */
