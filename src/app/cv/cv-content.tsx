@@ -7,6 +7,8 @@ import { PageHeader } from "@/components/page-header";
 import { FadeIn, StaggerChildren, StaggerItem } from "@/components/animations/fade-in";
 import { siteConfig } from "@/data/site-config";
 import { ongoingProjects } from "@/data/projects";
+import { courses } from "@/data/teaching";
+import { otherExperience } from "@/data/other-experience";
 
 // TODO: Fill in your education history. Add or remove objects as needed.
 const education = [
@@ -24,30 +26,17 @@ const education = [
   },
 ];
 
-// TODO: Fill in your work/research experience. Add or remove objects as needed.
 const experience = [
-	{
-		title: "CSE 156 TA - Network Programming", // TODO: e.g. "Research Intern"
-		organization: "University of California, Santa Cruz", // TODO: e.g. "Example Lab"
-		period: "Sep 2026 - Current", // TODO: e.g. "Jun 2023 - Aug 2023"
-		location: "Santa Cruz, CA",
-		description: "Led weekly lab sections and guided students through hands-on networking assignments", // TODO: brief description of your responsibilities/contributions
-	},
-	{
-		title: "LAMAT mentor",
-		organization: "University of California, Santa Cruz",
-		period: "July 2026 - Aug 2026",
-		location: "Santa Cruz, CA",
-		description: "Mentored a LAMAT student during the summer in a network security and sustainability project.",
-	},
-  {
-    title: "CSE 150 TA - Introduction to Computer Networks", // TODO: e.g. "Research Intern"
-    organization: "University of California, Santa Cruz", // TODO: e.g. "Example Lab"
-    period: "Sep 2025 - Dec 2025", // TODO: e.g. "Jun 2023 - Aug 2023"
-    location: "Santa Cruz, CA",
-    description: "Led weekly lab sections and guided students through hands-on networking assignments", // TODO: brief description of your responsibilities/contributions
-  },
-];
+  ...courses.map((course) => ({
+    title: `${course.code} TA - ${course.title}`,
+    organization: course.institution,
+    period: course.period,
+    sortDate: course.sortDate,
+    location: course.location,
+    description: course.cvSummary,
+  })),
+  ...otherExperience,
+].sort((a, b) => (a.sortDate < b.sortDate ? 1 : -1));
 
 interface Presentation {
   title: string
