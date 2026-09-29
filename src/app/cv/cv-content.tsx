@@ -284,7 +284,7 @@ export function CVContent() {
             See my full list of publications with links to papers and code.
           </p>
           <Button variant="outline" size="sm" asChild>
-            <Link href="/publications">
+            <Link href="/#publications">
               View Publications
             </Link>
           </Button>

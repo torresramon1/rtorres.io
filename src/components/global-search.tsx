@@ -15,7 +15,7 @@ interface SearchResult {
 
 const staticPages: SearchResult[] = [
   { title: "Home", description: "Main page and bio", href: "/", type: "Page", icon: FileText },
-  { title: "Publications", description: "All peer-reviewed publications", href: "/publications", type: "Page", icon: FileText },
+  { title: "Publications", description: "All peer-reviewed publications", href: "/#publications", type: "Page", icon: FileText },
   { title: "Teaching", description: "Teaching experience at UC Santa Cruz", href: "/teaching", type: "Page", icon: GraduationCap },
   { title: "CV", description: "Curriculum Vitae", href: "/cv", type: "Page", icon: FileText },
   { title: "News", description: "Latest research updates", href: "/news", type: "Page", icon: Newspaper },
@@ -24,7 +24,7 @@ const staticPages: SearchResult[] = [
 const publicationResults: SearchResult[] = publications.map((pub) => ({
   title: pub.title,
   description: `${pub.venue}, ${pub.year}`,
-  href: "/publications",
+  href: "/#publications",
   type: "Publication",
   icon: FileText,
 }));

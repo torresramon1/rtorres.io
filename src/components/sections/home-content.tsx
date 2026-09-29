@@ -9,6 +9,7 @@ import { ongoingProjects } from "@/data/projects";
 import { FadeIn } from "@/components/animations/fade-in";
 import { motion, useReducedMotion } from "framer-motion";
 import { TiltCard } from "@/components/interactive/tilt-card";
+import { PublicationsSection } from "@/components/sections/publications-section";
 
 /* ─────────────────────────────────────────
    SECTION HEADING WITH "VIEW ALL" LINK
@@ -109,23 +110,6 @@ export function HomeContent() {
 
 
         {/* ═══════════════════════════════════════
-            PLACEHOLDER — content coming soon
-            ═══════════════════════════════════════ */}
-        <FadeIn direction="none" delay={0.05}>
-          <section className="mb-16" aria-labelledby="section-placeholder">
-            <h2 id="section-placeholder" className="text-xl font-bold tracking-tight mb-3">
-              More Coming Soon
-            </h2>
-            <p className="text-sm text-foreground-secondary leading-relaxed">
-              News, publications, and blog posts are being updated — check back soon.
-            </p>
-          </section>
-        </FadeIn>
-
-        {/* ── divider ── */}
-        <hr className="border-border mb-16" />
-
-        {/* ═══════════════════════════════════════
             ONGOING PROJECTS
             ═══════════════════════════════════════ */}
         <FadeIn direction="none" delay={0.08}>
@@ -197,6 +181,16 @@ export function HomeContent() {
 
         {/* ── divider ── */}
         <hr className="border-border mb-16" />
+
+        {/* ═══════════════════════════════════════
+            PUBLICATIONS
+            ═══════════════════════════════════════ */}
+        <FadeIn direction="none" delay={0.1}>
+          <section id="publications" className="mb-16 scroll-mt-20" aria-labelledby="section-publications">
+            <SectionHeading title="Publications" id="section-publications" />
+            <PublicationsSection />
+          </section>
+        </FadeIn>
 
       </div>
     </div>

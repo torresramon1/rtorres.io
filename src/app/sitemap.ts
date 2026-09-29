@@ -8,7 +8,6 @@ const BASE_URL = "https://rtorres.io";
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     { url: `${BASE_URL}/`, changeFrequency: "weekly", priority: 1.0 },
-    { url: `${BASE_URL}/publications`, changeFrequency: "monthly", priority: 0.9 },
     //{ url: `${BASE_URL}/blog`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE_URL}/cv`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/teaching`, changeFrequency: "monthly", priority: 0.7 },
