@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     template: "%s | Ramon Torres",
   },
   description:
-    "PhD Student in Computer Science at UC Santa Cruz, researching human-centered security and privacy. Exploring cybercrime ecosystems, Android malware, and security education.",
+    "PhD Student in Computer Science at UC Santa Cruz, researching privacy tools and Internet censorship.",
   keywords: [
     "Ramon Torres",
     "Security Research",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     url: "https://ramontorres.github.io",
     title: "Ramon Torres | Security & Privacy Researcher",
     description:
-      "PhD Student in Computer Science at UC Santa Cruz, researching human-centered security and privacy.",
+      "PhD Student in Computer Science at UC Santa Cruz, researching privacy tools and Internet censorship.",
     siteName: "Ramon Torres",
     images: [
       {
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Ramon Torres | Security & Privacy Researcher",
     description:
-      "PhD Student in Computer Science at UC Santa Cruz, researching human-centered security and privacy.",
+      "PhD Student in Computer Science at UC Santa Cruz, researching privacy tools and Internet censorship.",
     images: ["/og-image.png"],
   },
   robots: {
