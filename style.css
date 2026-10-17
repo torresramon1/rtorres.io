@@ -5,6 +5,7 @@
   --muted: #59636e;
   --border: #d0d7de;
   --link: #004D61;
+  --link-hover: #00809E; /* brighter --link for hovered links; dark mode overrides below */
   --code-bg: #f6f8fa;
 }
 
@@ -18,6 +19,7 @@
     --muted: #9198a1;
     --border: #30363d;
     --link: #004D61;
+    --link-hover: #006B85;
     --code-bg: #161b22;
   }
 }
@@ -29,6 +31,7 @@
   --muted: #9198a1;
   --border: #30363d;
   --link: #004D61;
+  --link-hover: #006B85;
   --code-bg: #161b22;
 }
 
@@ -44,7 +47,8 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--fg);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-family: "Avenir Next", Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-kerning: normal;
   line-height: 1.6;
 }
 
@@ -85,7 +89,7 @@ body {
 }
 
 .site-nav a:hover {
-  color: var(--link);
+  color: var(--link-hover);
   text-decoration: underline;
 }
 
@@ -140,6 +144,7 @@ main.markdown-body {
 }
 
 .markdown-body a:hover {
+  color: var(--link-hover);
   text-decoration: underline;
 }
 
