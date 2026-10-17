@@ -45,7 +45,7 @@ export function CursorGlow() {
       window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(raf);
     };
-  }, [resolvedTheme, prefersReducedMotion]);
+  }, [mounted, resolvedTheme, prefersReducedMotion]);
 
   if (!mounted || prefersReducedMotion || resolvedTheme !== "dark") return null;
 
