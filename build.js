@@ -65,8 +65,18 @@ function renderInline(text) {
 function renderLines(lines) {
   const html = [];
   let listOpen = false;
+  let paragraph = [];
 
+  // Consecutive text lines form one paragraph, joined with spaces, so long
+  // paragraphs can be wrapped across lines in the source.
+  const closeParagraph = () => {
+    if (paragraph.length) {
+      html.push(`<p>${renderInline(paragraph.join(" "))}</p>`);
+      paragraph = [];
+    }
+  };
   const closeList = () => {
+    closeParagraph();
     if (listOpen) {
       html.push("</ul>");
       listOpen = false;
@@ -94,6 +104,7 @@ function renderLines(lines) {
     }
     const listItem = line.match(/^[-*]\s+(.*)$/);
     if (listItem) {
+      closeParagraph();
       if (!listOpen) {
         html.push("<ul>");
         listOpen = true;
@@ -101,8 +112,8 @@ function renderLines(lines) {
       html.push(`<li>${renderInline(listItem[1])}</li>`);
       continue;
     }
-    closeList();
-    html.push(`<p>${renderInline(line)}</p>`);
+    if (listOpen) closeList();
+    paragraph.push(line.trim());
   }
   closeList();
   return html.join("\n");
@@ -277,13 +288,13 @@ const themeToggleScript = `<script>
 // feed several pages. The included file's top-level "# Title" is dropped.
 // `{{include file.md summary}}` trims each entry — a callout or a "### Title"
 // section — to its header lines (the title plus everything before the first
-// blank line) and the first body line — the summary sentence or first
-// bullet — for the CV's short form. `{{include file.md cards}}` wraps the
+// blank line) and the first body paragraph or first bullet, for the CV's
+// short form. `{{include file.md cards}}` wraps the
 // file in a "::: cards" block (see renderCards). Any "::: cards" fences in
 // the included file itself (e.g. teaching.md) are dropped first.
 function summarizeEntries(markdown) {
   const out = [];
-  let state = null; // null outside an entry, then "header" -> "body" -> "done"
+  let state = null; // null outside an entry, then "header" -> "body" -> ("paragraph" ->) "done"
   let entryIsQuote = false;
 
   for (const line of markdown.split("\n")) {
@@ -301,7 +312,11 @@ function summarizeEntries(markdown) {
       out.push(line);
     } else if (state === "body" && content !== "") {
       out.push(line);
-      state = "done";
+      // A paragraph continues onto following lines; a bullet stands alone.
+      state = /^[-*]\s|^#/.test(content) ? "done" : "paragraph";
+    } else if (state === "paragraph") {
+      if (content === "" || /^[-*]\s|^#|^Tags:/i.test(content)) state = "done";
+      else out.push(line);
     }
   }
   return out.join("\n");
