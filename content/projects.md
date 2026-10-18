@@ -1,9 +1,20 @@
-### Tor Sustainability
+### Green Onion: Optimizing the Carbon Footprint of the Tor Network 
 RANDLab (UCSC) · Under Review
 
-Measuring the carbon footprint of Tor and making it carbon efficient with carbon-aware routing.
+
+We use empirical methods to measure the carbon footprint of Tor and propose carbon-aware routing
+to reduce Tor's carbon footprint.
 
 Tags: Tor, Sustainability, Privacy, Networks, Measurement
+
+### Geodifference Measurements
+RANDLab (UCSC) · Planning
+
+We run various open source internet measurement tools through residential proxies to understand 
+how websites serve users across different geolocations.
+
+Tags: Networks, Measurement, Censorship
+
 
 <!-- Shared by index.md (as cards, via {{include projects.md cards}}) and
      cv.md (summary, via {{include projects.md summary}}). The CV's summary
