@@ -1,7 +1,6 @@
 ### Green Onion: Optimizing the Carbon Footprint of the Tor Network 
 RANDLab (UCSC) · Under Review
 
-
 We use empirical methods to measure the carbon footprint of Tor and propose carbon-aware routing
 to reduce Tor's carbon footprint.
 
