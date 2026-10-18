@@ -1,28 +1,32 @@
-> [!NOTE] Tor Sustainability
-> RANDLab (UCSC) · Under Review
->
-> Measuring the carbon footprint of Tor and making it carbon efficient with carbon-aware routing.
->
-> - Measuring Tor's carbon footprint
-> - Carbon aware routing
->
-> Tags: Tor, Sustainability, Privacy, Networks, Measurement
+### Tor Sustainability
+RANDLab (UCSC) · Under Review
 
-<!-- Shared by index.md (full) and cv.md (summary) via {{include projects.md}}.
-     The CV's summary version keeps each project's title, collaborators/status
-     line, and first paragraph, dropping the highlights and tags.
+Measuring the carbon footprint of Tor and making it carbon efficient with carbon-aware routing.
 
-     Add more projects following the pattern above (keep a blank line between
-     callouts or they'll merge into one):
+Tags: Tor, Sustainability, Privacy, Networks, Measurement
 
-> [!NOTE] Project Title
-> Collaborators · Status
->
-> One-line summary.
->
-> - highlight one
-> - highlight two
->
-> Tags: tag, tag, tag
+<!-- Shared by index.md (as cards, via {{include projects.md cards}}) and
+     cv.md (summary, via {{include projects.md summary}}). The CV's summary
+     keeps each project's title, collaborators/status line, and first
+     paragraph, dropping the tags.
 
+     Add more projects following the pattern below. The line under the title
+     is "Collaborators · Status": the text after the last "·" becomes the
+     status pill (separate several collaborators with "·" too). Leave out the
+     "·" for no pill.
+
+### Project Title
+Collaborators · Status
+
+One-line summary.
+
+Tags: tag, tag, tag
+
+     Status choices — the pill color comes from keywords in the status text,
+     so any wording containing one works (e.g. "Submitted to IMC 2027"):
+
+       Under Review, Submitted      -> amber
+       In Progress, Ongoing, Active -> green
+       Accepted, Published          -> teal
+       anything else                -> grey (e.g. "Planning", "On Hold")
 -->

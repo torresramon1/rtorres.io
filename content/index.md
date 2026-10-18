@@ -13,7 +13,7 @@ Research interests: Network Security, Privacy, Sustainability
 
 ## Ongoing Projects
 
-{{include projects.md}}
+{{include projects.md cards}}
 
 ---
 

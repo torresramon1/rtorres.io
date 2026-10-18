@@ -297,6 +297,89 @@ main.markdown-body {
   --callout-bg: rgba(248, 81, 73, 0.12);
 }
 
+/* Cards ("::: cards" blocks) for projects and teaching: one per row, with a
+   status pill on the meta line and tag pills at the bottom. */
+.cards {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 16px;
+}
+
+.card {
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.markdown-body .card h3 {
+  margin: 0 0 2px;
+  font-size: 1.1em;
+}
+
+.markdown-body .card p,
+.markdown-body .card ul {
+  margin: 0 0 6px;
+  font-size: 15px;
+}
+
+.markdown-body .card > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body .card-meta {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.status,
+.tag {
+  font-size: 12px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+
+.status {
+  color: var(--status);
+  border-color: color-mix(in srgb, var(--status) 40%, transparent);
+}
+
+.status-review { --status: #9a6700; }
+.status-active { --status: #1a7f37; }
+.status-done { --status: #00809E; }
+.status-other { --status: var(--muted); }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .status-review { --status: #d29922; }
+  :root:not([data-theme="light"]) .status-active { --status: #3fb950; }
+  :root:not([data-theme="light"]) .status-done { --status: #39b4d0; }
+}
+
+:root[data-theme="dark"] .status-review { --status: #d29922; }
+:root[data-theme="dark"] .status-active { --status: #3fb950; }
+:root[data-theme="dark"] .status-done { --status: #39b4d0; }
+
+.markdown-body .cards-empty {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.markdown-body .card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  color: var(--muted);
+  background: var(--code-bg);
+}
+
 .site-footer {
   max-width: 740px;
   margin: 0 auto;
@@ -307,6 +390,13 @@ main.markdown-body {
 
 .site-footer a {
   color: var(--muted);
+}
+
+/* Page weight / CO2e line: smaller and fainter than the footer. */
+.site-footer .site-stats {
+  margin-top: -8px;
+  font-size: 12px;
+  opacity: 0.75;
 }
 
 .print-button button {
@@ -393,6 +483,10 @@ main.markdown-body {
     --callout-border: #000;
     background: none;
     padding: 4px 12px;
+    break-inside: avoid;
+  }
+
+  .card {
     break-inside: avoid;
   }
 }

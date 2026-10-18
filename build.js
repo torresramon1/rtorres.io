@@ -12,12 +12,24 @@ const outDir = path.join(__dirname, "dist");
 
 const pages = [
   { file: "index.md", nav: "Home", title: "Ramon Torres" },
-  //{ file: "cv.md", nav: "CV", title: "CV · Ramon Torres", printButton: true },
   { file: "teaching.md", nav: "Teaching", title: "Teaching · Ramon Torres" },
   { file: "publications.md", nav: "Publications", title: "Publications · Ramon Torres" },
 ];
 
 const siteFooter = `Ramon Torres · <a href="mailto:rtorre25@ucsc.edu">Email</a> · <a href="https://linkedin.com/in/ramonTorres25">LinkedIn</a>`;
+
+// Footer stats line: page weight and an estimated CO2e per visit, using the
+// Sustainable Web Design Model v4 (what websitecarbon.com uses). Energy per
+// GB transferred, operational + embodied for data centers (0.055 + 0.012),
+// networks (0.059 + 0.013), and user devices (0.080 + 0.081), at the model's
+// default global grid intensity. Counts every visit as a first visit (no
+// caching) and assumes non-green hosting. Computed once per page at build
+// time (see withStats).
+// Constants: https://sustainablewebdesign.org/estimating-digital-emissions/
+const swdKwhPerGb = 0.055 + 0.012 + 0.059 + 0.013 + 0.08 + 0.081; // 0.300
+const swdGramsPerKwh = 494;
+const carbonMethodUrl = "https://www.websitecarbon.com/how-does-it-work/";
+const carbonModelUrl = "https://sustainablewebdesign.org/estimating-digital-emissions/";
 
 function escapeHtml(text) {
   return text
@@ -137,19 +149,80 @@ function groupBlocks(lines) {
   return blocks;
 }
 
-// Minimal Markdown -> HTML covering the subset this site uses: headings,
-// paragraphs, bold/italic, links, inline code, unordered lists, horizontal
-// rules, and blockquotes/callouts. HTML comments (<!-- ... -->) are stripped
-// before rendering, so .md files can carry editor-only TODO notes. Separate
-// consecutive callouts/blockquotes with a blank line, or they'll merge into
-// one block.
-function markdownToHtml(markdown) {
-  const stripped = markdown.replace(/<!--[\s\S]*?-->/g, "");
-  const lines = stripped.replace(/\r\n/g, "\n").split("\n");
-  const blocks = groupBlocks(lines);
+// Card status pills are colored by keywords in the status text; anything
+// unmatched gets a neutral pill.
+const statusKinds = [
+  [/review|submitted/i, "review"],
+  [/progress|ongoing|active/i, "active"],
+  [/accepted|published/i, "done"],
+];
+
+// Renders a "::: cards" block: each "### Title" section becomes a card. The
+// line right under the title is the meta line, whose text after the last "·"
+// becomes the status pill; a "Tags: a, b" line becomes tag pills; everything
+// else renders as normal Markdown. With no sections, it shows emptyText (the
+// rest of the "::: cards" line) as a muted note instead.
+function renderCards(markdown, emptyText) {
+  const sections = markdown.split(/^(?=###\s)/m).filter((section) => /^###\s/.test(section));
+  if (!sections.length) {
+    return `<p class="cards-empty">${renderInline(emptyText.trim() || "Nothing here yet.")}</p>`;
+  }
+
+  const cards = sections.map((section) => {
+    const [heading, ...rest] = section.trim().split("\n");
+    const html = [`<h3>${renderInline(heading.replace(/^###\s+/, ""))}</h3>`];
+
+    if (rest.length && rest[0].trim() !== "") {
+      const meta = rest.shift().trim();
+      const dot = meta.lastIndexOf("·");
+      const text = dot === -1 ? meta : meta.slice(0, dot).trim();
+      let pill = "";
+      if (dot !== -1) {
+        const status = meta.slice(dot + 1).trim();
+        const kind = statusKinds.find(([pattern]) => pattern.test(status));
+        pill = `<span class="status status-${kind ? kind[1] : "other"}">${renderInline(status)}</span>`;
+      }
+      html.push(`<p class="card-meta"><span>${renderInline(text)}</span>${pill}</p>`);
+    }
+
+    const tagsIndex = rest.findIndex((line) => /^Tags:/i.test(line.trim()));
+    const tagsLine = tagsIndex === -1 ? null : rest.splice(tagsIndex, 1)[0];
+    html.push(renderLines(rest));
+    if (tagsLine) {
+      const tags = tagsLine.trim().replace(/^Tags:\s*/i, "").split(",").map((tag) => tag.trim()).filter(Boolean);
+      html.push(`<p class="card-tags">${tags.map((tag) => `<span class="tag">${renderInline(tag)}</span>`).join("")}</p>`);
+    }
+    return `<article class="card">\n${html.filter(Boolean).join("\n")}\n</article>`;
+  });
+
+  return `<div class="cards">\n${cards.join("\n")}\n</div>`;
+}
+
+function renderMarkdown(markdown) {
+  const blocks = groupBlocks(markdown.split("\n"));
   return blocks
     .map((block) => (block.type === "quote" ? renderBlockquote(block.lines) : renderLines(block.lines)))
     .join("\n");
+}
+
+// Minimal Markdown -> HTML covering the subset this site uses: headings,
+// paragraphs, bold/italic, links, inline code, unordered lists, horizontal
+// rules, blockquotes/callouts, and "::: cards [empty text]" ... ":::" card
+// blocks. HTML
+// comments (<!-- ... -->) are stripped before rendering, so .md files can
+// carry editor-only TODO notes. Separate consecutive callouts/blockquotes
+// with a blank line, or they'll merge into one block.
+function markdownToHtml(markdown) {
+  const stripped = markdown.replace(/<!--[\s\S]*?-->/g, "").replace(/\r\n/g, "\n");
+  // split() with two capture groups cycles: plain Markdown, a card block's
+  // empty text, its body, then plain Markdown again, ...
+  const parts = stripped.split(/^::: cards(.*)\n([\s\S]*?)^:::[ \t]*$/m);
+  const html = [];
+  for (let i = 0; i < parts.length; i += 3) {
+    html.push(renderMarkdown(parts[i]));
+    if (i + 2 < parts.length) html.push(renderCards(parts[i + 2], parts[i + 1]));
+  }
+  return html.join("\n");
 }
 
 // Opens the browser's print dialog, where "Save as PDF" produces the CV
@@ -192,22 +265,26 @@ const themeToggleScript = `<script>
 // Shared content: a line of `{{include file.md}}` is replaced with that
 // file from content/ before rendering, so one source (e.g. projects.md) can
 // feed several pages. The included file's top-level "# Title" is dropped.
-// `{{include file.md summary}}` trims each callout to its header lines (the
-// title plus everything before the first blank line) and the first body
-// line — the summary sentence or first bullet — for the CV's short form.
-function summarizeCallouts(markdown) {
+// `{{include file.md summary}}` trims each entry — a callout or a "### Title"
+// section — to its header lines (the title plus everything before the first
+// blank line) and the first body line — the summary sentence or first
+// bullet — for the CV's short form. `{{include file.md cards}}` wraps the
+// file in a "::: cards" block (see renderCards). Any "::: cards" fences in
+// the included file itself (e.g. teaching.md) are dropped first.
+function summarizeEntries(markdown) {
   const out = [];
-  let state = null; // null outside a callout, then "header" -> "body" -> "done"
+  let state = null; // null outside an entry, then "header" -> "body" -> "done"
+  let entryIsQuote = false;
 
   for (const line of markdown.split("\n")) {
     const quote = line.match(/^>\s?(.*)$/);
-    if (!quote) {
+    const content = (quote ? quote[1] : line).trim();
+    if (quote ? /^\[![A-Z]+\]/.test(content) : /^###\s/.test(line)) {
+      state = "header";
+      entryIsQuote = Boolean(quote);
+    } else if (Boolean(quote) !== entryIsQuote || /^#{1,2}\s/.test(line)) {
       state = null;
-      out.push(line);
-      continue;
     }
-    const content = quote[1].trim();
-    if (/^\[![A-Z]+\]/.test(content)) state = "header";
 
     if (state === null || state === "header") {
       if (content === "" && state === "header") state = "body";
@@ -221,17 +298,20 @@ function summarizeCallouts(markdown) {
 }
 
 function expandIncludes(markdown) {
-  return markdown.replace(/^\{\{\s*include\s+(\S+?)(\s+summary)?\s*\}\}\s*$/gm, (_, file, summary) => {
+  return markdown.replace(/^\{\{\s*include\s+(\S+?)(?:\s+(summary|cards))?\s*\}\}\s*$/gm, (_, file, mode) => {
     const included = fs
       .readFileSync(path.join(contentDir, file), "utf8")
       .replace(/<!--[\s\S]*?-->/g, "")
       .replace(/^#\s.*$/m, "")
+      .replace(/^:::.*$/gm, "")
       .trim();
-    return summary ? summarizeCallouts(included) : included;
+    if (mode === "summary") return summarizeEntries(included);
+    if (mode === "cards") return `::: cards\n${included}\n:::`;
+    return included;
   });
 }
 
-function layout({ title, bodyHtml, navHtml }) {
+function layout({ title, bodyHtml, navHtml, statsHtml }) {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -249,11 +329,54 @@ ${bodyHtml}
 </main>
 <footer class="site-footer">
 <p>${siteFooter}</p>
+<p class="site-stats">${statsHtml}</p>
 </footer>
 ${themeToggleScript}
 </body>
 </html>
 `;
+}
+
+// Resources a page makes the browser fetch from another origin: absolute
+// (or protocol-relative) URLs in src/srcset/data attributes, <link> hrefs
+// other than plain references (canonical/alternate/me), and CSS url() or
+// @import. Plain <a> links aren't requests until clicked, so they don't count.
+function thirdPartyRequests(html, css) {
+  const external = /^(?:https?:)?\/\//i;
+  const urls = new Set();
+  for (const [, attr, value] of html.matchAll(/\s(src|srcset|data)="([^"]+)"/gi)) {
+    const candidates = attr.toLowerCase() === "srcset" ? value.split(",").map((entry) => entry.trim().split(/\s+/)[0]) : [value];
+    for (const url of candidates) if (external.test(url)) urls.add(url);
+  }
+  for (const [tag] of html.matchAll(/<link\b[^>]*>/gi)) {
+    const href = tag.match(/\shref="([^"]+)"/i);
+    if (href && external.test(href[1]) && !/\srel="(?:canonical|alternate|me)"/i.test(tag)) urls.add(href[1]);
+  }
+  for (const [, url] of css.matchAll(/(?:url\(\s*["']?|@import\s+["'])([^"')\s]+)/gi)) {
+    if (external.test(url)) urls.add(url);
+  }
+  return urls;
+}
+
+// Page weight = the HTML (measured with the stats placeholder, a few bytes
+// off), style.css, and each image the page references (incl. the favicon).
+// Also counts third-party requests, warning about any so they're deliberate.
+function withStats(html, file) {
+  const css = fs.readFileSync(path.join(__dirname, "style.css"), "utf8");
+  const images = new Set([...html.matchAll(/(?:src|href)="(images\/[^"]+)"/g)].map((match) => match[1]));
+  let bytes = Buffer.byteLength(html) + Buffer.byteLength(css);
+  for (const image of images) bytes += fs.statSync(path.join(__dirname, image)).size;
+
+  const thirdParty = thirdPartyRequests(html, css);
+  if (thirdParty.size) console.warn(`${file}: ${thirdParty.size} third-party request(s): ${[...thirdParty].join(", ")}`);
+
+  const grams = (bytes / 1e9) * swdKwhPerGb * swdGramsPerKwh;
+  const updated = new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  const stats =
+    `${Math.round(bytes / 1000)} KB · ≈${Number(grams.toPrecision(2))} g CO₂e per visit ` +
+    `(<a href="${carbonMethodUrl}">estimate</a>, <a href="${carbonModelUrl}">model</a>) · ` +
+    `${thirdParty.size} third-party request${thirdParty.size === 1 ? "" : "s"} · updated ${updated}`;
+  return html.replace("{{stats}}", stats);
 }
 
 function build() {
@@ -269,7 +392,7 @@ function build() {
     if (page.printButton) {
       bodyHtml = bodyHtml.replace("</h1>", `</h1>\n${printButtonHtml}`);
     }
-    const html = layout({ title: page.title, bodyHtml, navHtml });
+    const html = withStats(layout({ title: page.title, bodyHtml, navHtml, statsHtml: "{{stats}}" }), page.file);
     const outFile = page.file.replace(/\.md$/, ".html");
     fs.writeFileSync(path.join(outDir, outFile), html);
   }
