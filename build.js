@@ -2,6 +2,7 @@
 // Tiny zero-dependency Markdown -> static HTML build. No framework, no
 // bundler: edit a .md file in content/, run `npm run build`, done.
 
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -9,6 +10,15 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const contentDir = path.join(__dirname, "content");
 const outDir = path.join(__dirname, "dist");
+
+// Pages link style.css?v=<hash of its contents>, so a CSS change gets a new
+// URL and browsers/Cloudflare (which cache it for hours) can't serve a stale
+// copy alongside fresh HTML.
+const cssVersion = crypto
+  .createHash("sha256")
+  .update(fs.readFileSync(path.join(__dirname, "style.css")))
+  .digest("hex")
+  .slice(0, 10);
 
 const pages = [
   { file: "index.md", nav: "Home", title: "Ramon Torres" },
@@ -319,7 +329,7 @@ function layout({ title, bodyHtml, navHtml, statsHtml }) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${title}</title>
 <link rel="icon" href="images/icon.png">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=${cssVersion}">
 ${themeInitScript}
 </head>
 <body>
