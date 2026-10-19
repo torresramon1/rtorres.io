@@ -2,6 +2,7 @@
 // Tiny zero-dependency Markdown -> static HTML build. No framework, no
 // bundler: edit a .md file in content/, run `npm run build`, done.
 
+import { execFileSync } from "node:child_process";
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
@@ -19,6 +20,17 @@ const cssVersion = crypto
   .update(fs.readFileSync(path.join(__dirname, "style.css")))
   .digest("hex")
   .slice(0, 10);
+
+// "Updated" in the footer is the last commit's date, not the build time, so
+// rebuilding (e.g. a container restart) doesn't bump it. Falls back to now
+// if git isn't available.
+const lastUpdated = (() => {
+  try {
+    const iso = execFileSync("git", ["log", "-1", "--format=%cI"], { cwd: __dirname, encoding: "utf8" }).trim();
+    if (iso) return new Date(iso);
+  } catch {}
+  return new Date();
+})().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 
 const pages = [
   { file: "index.md", nav: "Home", title: "Ramon Torres" },
@@ -396,11 +408,10 @@ function withStats(html, file) {
   if (thirdParty.size) console.warn(`${file}: ${thirdParty.size} third-party request(s): ${[...thirdParty].join(", ")}`);
 
   const grams = (bytes / 1e9) * swdKwhPerGb * swdGramsPerKwh;
-  const updated = new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
   const stats =
     `${Math.round(bytes / 1000)} KB · ≈${Number(grams.toPrecision(2))} g CO₂e per visit ` +
     `(<a href="${carbonMethodUrl}">estimate</a>, <a href="${carbonModelUrl}">model</a>) · ` +
-    `${thirdParty.size} third-party request${thirdParty.size === 1 ? "" : "s"} · updated ${updated}`;
+    `${thirdParty.size} third-party request${thirdParty.size === 1 ? "" : "s"} · updated ${lastUpdated}`;
   return html.replace("{{stats}}", stats);
 }
 
