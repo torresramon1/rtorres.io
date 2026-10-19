@@ -36,7 +36,7 @@ const pages = [
   {
     file: "index.md",
     nav: "Home",
-    title: "Ramon Torres · PhD Student, UC Santa Cruz",
+    title: "Ramon Torres",
     description:
       "Ramon Torres is a Computer Science PhD student at UC Santa Cruz researching privacy, Tor, internet measurement, and censorship circumvention.",
   },
