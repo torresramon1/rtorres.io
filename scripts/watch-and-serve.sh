@@ -29,7 +29,12 @@ start_server
 while true; do
     sleep "$INTERVAL"
 
-    git fetch origin main --quiet
+    # A failed fetch (e.g. GitHub SSH timing out) must not kill the script:
+    # with `set -e` that exits the container, and the restart rebuilds the site.
+    if ! git fetch origin main --quiet; then
+        echo "git fetch failed; retrying in ${INTERVAL}s" >&2
+        continue
+    fi
 
     LOCAL=$(git rev-parse @)
     REMOTE=$(git rev-parse @{u})
@@ -37,7 +42,7 @@ while true; do
     if [[ "$LOCAL" != "$REMOTE" ]]; then
         echo "New changes found on GitHub, pulling..."
         stop_server
-        git pull --ff-only
+        git pull --ff-only || echo "git pull failed; serving the current checkout" >&2
         start_server
     fi
 done
