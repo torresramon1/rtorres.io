@@ -4,14 +4,14 @@
 
 ### CSE 156 — Network Programming
 Teaching Assistant · University of California, Santa Cruz · Fall 2026
-Instructor: Prof. Mike Parsa · Santa Cruz, CA · Sep 2026 - Current
+Instructor: Prof. Mike Parsa
 
 - Led weekly lab sections, guided students through hands-on networking assignments.
 - Held regular office hours to support student understanding of course material.
 
 ### CSE 150 — Introduction to Computer Networks
 Teaching Assistant · University of California, Santa Cruz · Fall 2025
-Instructor: Prof. Christina Parsa · Santa Cruz, CA · Sep 2025 - Dec 2025
+Instructor: Prof. Christina Parsa
 
 - Led weekly lab sections, guided students through hands-on networking assignments.
 - Held regular office hours to support student understanding of course material.
