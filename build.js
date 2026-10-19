@@ -33,10 +33,61 @@ const lastUpdated = (() => {
 })().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 
 const pages = [
-  { file: "index.md", nav: "Home", title: "Ramon Torres" },
-  { file: "teaching.md", nav: "Teaching", title: "Teaching · Ramon Torres" },
-  { file: "publications.md", nav: "Publications", title: "Publications · Ramon Torres" },
+  {
+    file: "index.md",
+    nav: "Home",
+    title: "Ramon Torres · PhD Student, UC Santa Cruz",
+    description:
+      "Ramon Torres is a Computer Science PhD student at UC Santa Cruz researching privacy, Tor, internet measurement, and censorship circumvention.",
+  },
+  {
+    file: "teaching.md",
+    nav: "Teaching",
+    title: "Teaching · Ramon Torres",
+    description: "Courses Ramon Torres has taught or TA'd at UC Santa Cruz.",
+  },
+  {
+    file: "publications.md",
+    nav: "Publications",
+    title: "Publications · Ramon Torres",
+    description: "Publications by Ramon Torres, PhD student at UC Santa Cruz.",
+  },
 ];
+
+// Public URL of the deployed site, for canonical links, sitemap.xml and
+// robots.txt. The server uses clean URLs (/teaching, not /teaching.html).
+const siteUrl = "https://rtorres.io";
+const pageUrl = (file) => `${siteUrl}/${file === "index.md" ? "" : file.replace(/\.md$/, "")}`;
+
+// SEO/backlink crawlers that robots.txt asks to stay away entirely.
+const blockedBots = [
+  "CuteStat",
+  "MJ12bot",
+  "PetalBot",
+  "SiteAuditBot",
+  "SemrushBot-BA",
+  "SemrushBot-SI",
+  "SemrushBot-SWA",
+  "SemrushBot-CT",
+  "SplitSignalBot",
+  "SemrushBot-COUB",
+  "rogerbot",
+  "dotbot",
+];
+
+// schema.org Person data on the homepage, so search engines can tie the
+// name to this site and the linked profiles.
+const personJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Ramon Torres",
+  url: `${siteUrl}/`,
+  image: `${siteUrl}/images/profile.jpg`,
+  jobTitle: "PhD Student",
+  affiliation: { "@type": "CollegeOrUniversity", name: "University of California, Santa Cruz", url: "https://www.ucsc.edu" },
+  email: "mailto:rtorre25@ucsc.edu",
+  sameAs: ["https://linkedin.com/in/ramonTorres25"],
+});
 
 const siteFooter = `Ramon Torres · <a href="mailto:rtorre25@ucsc.edu">Email</a> · <a href="https://linkedin.com/in/ramonTorres25">LinkedIn</a>`;
 
@@ -348,14 +399,21 @@ function expandIncludes(markdown) {
   });
 }
 
-function layout({ title, bodyHtml, navHtml, statsHtml }) {
+function layout({ title, description, url, jsonLd, bodyHtml, navHtml, statsHtml }) {
   return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${title}</title>
-<link rel="icon" href="images/icon.png">
+<meta name="description" content="${escapeHtml(description)}">
+<link rel="canonical" href="${url}">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="${escapeHtml(title)}">
+<meta property="og:description" content="${escapeHtml(description)}">
+<meta property="og:url" content="${url}">
+<meta property="og:image" content="${siteUrl}/images/profile.jpg">
+${jsonLd ? `<script type="application/ld+json">${jsonLd}</script>\n` : ""}<link rel="icon" href="images/icon.png">
 <link rel="stylesheet" href="style.css?v=${cssVersion}">
 ${themeInitScript}
 </head>
@@ -428,12 +486,31 @@ function build() {
     if (page.printButton) {
       bodyHtml = bodyHtml.replace("</h1>", `</h1>\n${printButtonHtml}`);
     }
-    const html = withStats(layout({ title: page.title, bodyHtml, navHtml, statsHtml: "{{stats}}" }), page.file);
+    const html = withStats(layout({
+        title: page.title,
+        description: page.description,
+        url: pageUrl(page.file),
+        jsonLd: page.file === "index.md" ? personJsonLd : null,
+        bodyHtml,
+        navHtml,
+        statsHtml: "{{stats}}",
+      }), page.file);
     const outFile = page.file.replace(/\.md$/, ".html");
     fs.writeFileSync(path.join(outDir, outFile), html);
   }
 
   fs.copyFileSync(path.join(__dirname, "style.css"), path.join(outDir, "style.css"));
+
+  const sitemap = pages.map((page) => `  <url><loc>${pageUrl(page.file)}</loc></url>`).join("\n");
+  fs.writeFileSync(
+    path.join(outDir, "sitemap.xml"),
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemap}\n</urlset>\n`,
+  );
+  const robots = [
+    `User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml`,
+    ...blockedBots.map((bot) => `User-agent: ${bot}\nDisallow: /`),
+  ];
+  fs.writeFileSync(path.join(outDir, "robots.txt"), robots.join("\n\n") + "\n");
 
   const imagesDir = path.join(__dirname, "images");
   if (fs.existsSync(imagesDir)) {
