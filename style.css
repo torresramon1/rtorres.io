@@ -148,15 +148,23 @@ main.markdown-body {
   text-decoration: underline;
 }
 
-/* Profile photo floats beside the bio, al-folio style — stacks above the
-   text on narrow screens instead. */
-.markdown-body img {
+/* Profile photo (plus the links on the lines right after it, which join its
+   paragraph) floats beside the bio, al-folio style — stacks above the text on
+   narrow screens instead. */
+.markdown-body p:has(> img) {
   width: 35%;
   max-width: 200px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
   float: right;
   margin: 0 0 16px 24px;
+  text-align: center;
+}
+
+.markdown-body img {
+  display: block;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin-bottom: 8px;
 }
 
 .markdown-body h2,
@@ -165,7 +173,7 @@ main.markdown-body {
 }
 
 @media (max-width: 640px) {
-  .markdown-body img {
+  .markdown-body p:has(> img) {
     float: none;
     width: 100%;
     max-width: 240px;
